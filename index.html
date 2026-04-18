@@ -1,231 +1,415 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Viron TRT Solutions — App Coming Soon</title>
-<style>
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Arial',sans-serif;background:#F9FAFB;color:#111827;line-height:1.6}
-  a{color:inherit;text-decoration:none}
-
-  /* NAV */
-  nav{background:#0F5147;padding:14px 24px;display:flex;align-items:center;gap:10px}
-  .nav-shield{width:28px;height:28px}
-  .nav-brand{color:#fff;font-size:16px;font-weight:700;letter-spacing:1px}
-  .nav-sub{color:#9FD8CF;font-size:11px;letter-spacing:2px;text-transform:uppercase}
-
-  /* HERO */
-  .hero{background:#0F5147;padding:64px 24px 72px;text-align:center;position:relative;overflow:hidden}
-  .hero::before{content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;border-radius:50%;background:rgba(45,163,139,0.18)}
-  .hero::after{content:'';position:absolute;bottom:-80px;left:-40px;width:220px;height:220px;border-radius:50%;background:rgba(45,163,139,0.12)}
-  .hero-badge{display:inline-block;background:rgba(255,255,255,0.12);color:#9FD8CF;font-size:11px;font-weight:700;letter-spacing:2px;padding:6px 16px;border-radius:20px;margin-bottom:20px;text-transform:uppercase}
-  .hero h1{color:#fff;font-size:clamp(28px,5vw,46px);font-weight:700;line-height:1.2;margin-bottom:18px;max-width:640px;margin-left:auto;margin-right:auto}
-  .hero h1 span{color:#5DCAA5}
-  .hero p{color:#9FD8CF;font-size:clamp(14px,2vw,17px);max-width:520px;margin:0 auto 32px;line-height:1.7}
-  .hero-cta-group{display:flex;flex-direction:column;align-items:center;gap:12px}
-  .btn-primary{background:#5DCAA5;color:#0F5147;font-size:15px;font-weight:700;padding:14px 32px;border-radius:8px;border:none;cursor:pointer;letter-spacing:0.3px;transition:background 0.2s}
-  .btn-primary:hover{background:#9FE1CB}
-  .btn-secondary{color:#9FD8CF;font-size:13px;border-bottom:1px solid rgba(159,216,207,0.4);padding-bottom:2px}
-
-  /* EMAIL CAPTURE */
-  .email-form{display:flex;gap:8px;margin-top:4px;flex-wrap:wrap;justify-content:center}
-  .email-input{height:46px;border:1.5px solid rgba(255,255,255,0.2);border-radius:8px;padding:0 16px;font-size:14px;color:#fff;background:rgba(255,255,255,0.1);outline:none;min-width:240px;flex:1;max-width:300px}
-  .email-input::placeholder{color:rgba(255,255,255,0.4)}
-  .email-input:focus{border-color:#5DCAA5}
-
-  /* FEATURES */
-  .features{padding:56px 24px;max-width:900px;margin:0 auto}
-  .features h2{font-size:clamp(20px,3vw,28px);font-weight:700;color:#111827;text-align:center;margin-bottom:8px}
-  .features .sub{text-align:center;color:#6B7280;font-size:14px;margin-bottom:40px}
-  .feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
-  .feature-card{background:#fff;border:0.5px solid #E5E7EB;border-radius:12px;padding:24px;border-top:3px solid #1D9E75}
-  .feature-icon{width:36px;height:36px;background:#E1F5EE;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:14px}
-  .feature-icon svg{width:18px;height:18px}
-  .feature-card h3{font-size:15px;font-weight:700;color:#111827;margin-bottom:6px}
-  .feature-card p{font-size:13px;color:#6B7280;line-height:1.6}
-
-  /* SPREADSHEET TEASER */
-  .sheet-section{background:#F0FAF7;padding:48px 24px;text-align:center}
-  .sheet-section h2{font-size:clamp(20px,3vw,26px);font-weight:700;color:#0F5147;margin-bottom:10px}
-  .sheet-section p{color:#374151;font-size:14px;max-width:500px;margin:0 auto 28px;line-height:1.7}
-  .sheet-preview{background:#fff;border:0.5px solid #C5E8E3;border-radius:12px;padding:20px;max-width:580px;margin:0 auto 28px;text-align:left}
-  .sheet-row{display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:0.5px solid #F3F4F6}
-  .sheet-row:last-child{border-bottom:none}
-  .sheet-marker{font-size:13px;font-weight:700;color:#111827;min-width:130px}
-  .sheet-value{font-size:13px;color:#374151;min-width:60px}
-  .badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px}
-  .b-green{background:#E1F5EE;color:#085041}
-  .b-amber{background:#FAEEDA;color:#633806}
-  .b-red{background:#FAECE7;color:#712B13}
-  .b-blue{background:#E6F1FB;color:#0C447C}
-  .sheet-note{font-size:11px;color:#6B7280;flex:1}
-  .download-btn{background:#1D6E5E;color:#fff;font-size:14px;font-weight:700;padding:13px 28px;border-radius:8px;border:none;cursor:pointer;display:inline-block}
-  .download-btn:hover{background:#0F5147}
-
-  /* COMING SOON */
-  .coming{background:#0F5147;padding:56px 24px;text-align:center}
-  .coming h2{color:#fff;font-size:clamp(22px,4vw,34px);font-weight:700;margin-bottom:12px}
-  .coming p{color:#9FD8CF;font-size:14px;max-width:480px;margin:0 auto 32px;line-height:1.7}
-  .app-features{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;max-width:600px;margin:0 auto 36px}
-  .app-chip{background:rgba(255,255,255,0.1);color:#9FD8CF;font-size:12px;padding:6px 14px;border-radius:20px;border:0.5px solid rgba(255,255,255,0.15)}
-  .notify-form{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
-  .notify-input{height:46px;border:1.5px solid rgba(255,255,255,0.2);border-radius:8px;padding:0 16px;font-size:14px;color:#fff;background:rgba(255,255,255,0.1);outline:none;min-width:220px}
-  .notify-input::placeholder{color:rgba(255,255,255,0.4)}
-  .notify-btn{height:46px;background:#5DCAA5;color:#0F5147;font-size:14px;font-weight:700;padding:0 24px;border-radius:8px;border:none;cursor:pointer;white-space:nowrap}
-
-  /* FOOTER */
-  footer{background:#111827;padding:28px 24px;text-align:center}
-  footer p{color:#6B7280;font-size:12px}
-  footer span{color:#9FD8CF}
-</style>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 25.8.4.2 (Linux)"/>
+	<meta name="created" content="00:00:00"/>
+	<meta name="changed" content="00:00:00"/>
+	<style type="text/css">
+		@page { size: 8.5in 11in; margin: 1in }
+		p { margin-bottom: 0.1in; line-height: 115%; background: transparent }
+		a:link { so-language: zxx; color: #000080; text-decoration: underline }
+	</style>
 </head>
-<body>
+<body lang="en" link="#000080" vlink="#800000" dir="ltr"><p style="margin-bottom: 0in">
+&lt;!DOCTYPE html&gt;</p>
+<p style="margin-bottom: 0in">&lt;html lang=&quot;en&quot;&gt;</p>
+<p style="margin-bottom: 0in">&lt;head&gt;</p>
+<p style="margin-bottom: 0in">&lt;meta charset=&quot;UTF-8&quot;&gt;</p>
+<p style="margin-bottom: 0in">&lt;meta name=&quot;viewport&quot;
+content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</p>
+<p style="margin-bottom: 0in">&lt;title&gt;Viron TRT Solutions —
+App Coming Soon&lt;/title&gt;</p>
+<p style="margin-bottom: 0in">&lt;style&gt;</p>
+<p style="margin-bottom: 0in"> 
+*{box-sizing:border-box;margin:0;padding:0}</p>
+<p style="margin-bottom: 0in"> 
+body{font-family:'Arial',sans-serif;background:#F9FAFB;color:#111827;line-height:1.6}</p>
+<p style="margin-bottom: 0in">  a{color:inherit;text-decoration:none}</p>
+<p style="margin-bottom: 0in">  /* NAV */</p>
+<p style="margin-bottom: 0in">  nav{background:#0F5147;padding:14px
+24px;display:flex;align-items:center;gap:10px}</p>
+<p style="margin-bottom: 0in">  .nav-shield{width:28px;height:28px}</p>
+<p style="margin-bottom: 0in"> 
+.nav-brand{color:#fff;font-size:16px;font-weight:700;letter-spacing:1px}</p>
+<p style="margin-bottom: 0in"> 
+.nav-sub{color:#9FD8CF;font-size:11px;letter-spacing:2px;text-transform:uppercase}</p>
+<p style="margin-bottom: 0in">  /* HERO */</p>
+<p style="margin-bottom: 0in">  .hero{background:#0F5147;padding:64px
+24px 72px;text-align:center;position:relative;overflow:hidden}</p>
+<p style="margin-bottom: 0in"> 
+.hero::before{content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;border-radius:50%;background:rgba(45,163,139,0.18)}</p>
+<p style="margin-bottom: 0in"> 
+.hero::after{content:'';position:absolute;bottom:-80px;left:-40px;width:220px;height:220px;border-radius:50%;background:rgba(45,163,139,0.12)}</p>
+<p style="margin-bottom: 0in"> 
+.hero-badge{display:inline-block;background:rgba(255,255,255,0.12);color:#9FD8CF;font-size:11px;font-weight:700;letter-spacing:2px;padding:6px
+16px;border-radius:20px;margin-bottom:20px;text-transform:uppercase}</p>
+<p style="margin-bottom: 0in">  .hero
+h1{color:#fff;font-size:clamp(28px,5vw,46px);font-weight:700;line-height:1.2;margin-bottom:18px;max-width:640px;margin-left:auto;margin-right:auto}</p>
+<p style="margin-bottom: 0in">  .hero h1 span{color:#5DCAA5}</p>
+<p style="margin-bottom: 0in">  .hero
+p{color:#9FD8CF;font-size:clamp(14px,2vw,17px);max-width:520px;margin:0
+auto 32px;line-height:1.7}</p>
+<p style="margin-bottom: 0in"> 
+.hero-cta-group{display:flex;flex-direction:column;align-items:center;gap:12px}</p>
+<p style="margin-bottom: 0in"> 
+.btn-primary{background:#5DCAA5;color:#0F5147;font-size:15px;font-weight:700;padding:14px
+32px;border-radius:8px;border:none;cursor:pointer;letter-spacing:0.3px;transition:background
+0.2s}</p>
+<p style="margin-bottom: 0in"> 
+.btn-primary:hover{background:#9FE1CB}</p>
+<p style="margin-bottom: 0in"> 
+.btn-secondary{color:#9FD8CF;font-size:13px;border-bottom:1px solid
+rgba(159,216,207,0.4);padding-bottom:2px}</p>
+<p style="margin-bottom: 0in">  /* EMAIL CAPTURE */</p>
+<p style="margin-bottom: 0in"> 
+.email-form{display:flex;gap:8px;margin-top:4px;flex-wrap:wrap;justify-content:center}</p>
+<p style="margin-bottom: 0in">  .email-input{height:46px;border:1.5px
+solid rgba(255,255,255,0.2);border-radius:8px;padding:0
+16px;font-size:14px;color:#fff;background:rgba(255,255,255,0.1);outline:none;min-width:240px;flex:1;max-width:300px}</p>
+<p style="margin-bottom: 0in"> 
+.email-input::placeholder{color:rgba(255,255,255,0.4)}</p>
+<p style="margin-bottom: 0in"> 
+.email-input:focus{border-color:#5DCAA5}</p>
+<p style="margin-bottom: 0in">  /* FEATURES */</p>
+<p style="margin-bottom: 0in">  .features{padding:56px
+24px;max-width:900px;margin:0 auto}</p>
+<p style="margin-bottom: 0in">  .features
+h2{font-size:clamp(20px,3vw,28px);font-weight:700;color:#111827;text-align:center;margin-bottom:8px}</p>
+<p style="margin-bottom: 0in">  .features
+.sub{text-align:center;color:#6B7280;font-size:14px;margin-bottom:40px}</p>
+<p style="margin-bottom: 0in"> 
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}</p>
+<p style="margin-bottom: 0in"> 
+.feature-card{background:#fff;border:0.5px solid
+#E5E7EB;border-radius:12px;padding:24px;border-top:3px solid #1D9E75}</p>
+<p style="margin-bottom: 0in"> 
+.feature-icon{width:36px;height:36px;background:#E1F5EE;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:14px}</p>
+<p style="margin-bottom: 0in">  .feature-icon
+svg{width:18px;height:18px}</p>
+<p style="margin-bottom: 0in">  .feature-card
+h3{font-size:15px;font-weight:700;color:#111827;margin-bottom:6px}</p>
+<p style="margin-bottom: 0in">  .feature-card
+p{font-size:13px;color:#6B7280;line-height:1.6}</p>
+<p style="margin-bottom: 0in">  /* SPREADSHEET TEASER */</p>
+<p style="margin-bottom: 0in"> 
+.sheet-section{background:#F0FAF7;padding:48px
+24px;text-align:center}</p>
+<p style="margin-bottom: 0in">  .sheet-section
+h2{font-size:clamp(20px,3vw,26px);font-weight:700;color:#0F5147;margin-bottom:10px}</p>
+<p style="margin-bottom: 0in">  .sheet-section
+p{color:#374151;font-size:14px;max-width:500px;margin:0 auto
+28px;line-height:1.7}</p>
+<p style="margin-bottom: 0in"> 
+.sheet-preview{background:#fff;border:0.5px solid
+#C5E8E3;border-radius:12px;padding:20px;max-width:580px;margin:0 auto
+28px;text-align:left}</p>
+<p style="margin-bottom: 0in"> 
+.sheet-row{display:flex;align-items:center;gap:12px;padding:8px
+0;border-bottom:0.5px solid #F3F4F6}</p>
+<p style="margin-bottom: 0in"> 
+.sheet-row:last-child{border-bottom:none}</p>
+<p style="margin-bottom: 0in"> 
+.sheet-marker{font-size:13px;font-weight:700;color:#111827;min-width:130px}</p>
+<p style="margin-bottom: 0in"> 
+.sheet-value{font-size:13px;color:#374151;min-width:60px}</p>
+<p style="margin-bottom: 0in"> 
+.badge{font-size:11px;font-weight:700;padding:3px
+10px;border-radius:20px}</p>
+<p style="margin-bottom: 0in"> 
+.b-green{background:#E1F5EE;color:#085041}</p>
+<p style="margin-bottom: 0in"> 
+.b-amber{background:#FAEEDA;color:#633806}</p>
+<p style="margin-bottom: 0in"> 
+.b-red{background:#FAECE7;color:#712B13}</p>
+<p style="margin-bottom: 0in"> 
+.b-blue{background:#E6F1FB;color:#0C447C}</p>
+<p style="margin-bottom: 0in"> 
+.sheet-note{font-size:11px;color:#6B7280;flex:1}</p>
+<p style="margin-bottom: 0in"> 
+.download-btn{background:#1D6E5E;color:#fff;font-size:14px;font-weight:700;padding:13px
+28px;border-radius:8px;border:none;cursor:pointer;display:inline-block}</p>
+<p style="margin-bottom: 0in"> 
+.download-btn:hover{background:#0F5147}</p>
+<p style="margin-bottom: 0in">  /* COMING SOON */</p>
+<p style="margin-bottom: 0in"> 
+.coming{background:#0F5147;padding:56px 24px;text-align:center}</p>
+<p style="margin-bottom: 0in">  .coming
+h2{color:#fff;font-size:clamp(22px,4vw,34px);font-weight:700;margin-bottom:12px}</p>
+<p style="margin-bottom: 0in">  .coming
+p{color:#9FD8CF;font-size:14px;max-width:480px;margin:0 auto
+32px;line-height:1.7}</p>
+<p style="margin-bottom: 0in"> 
+.app-features{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;max-width:600px;margin:0
+auto 36px}</p>
+<p style="margin-bottom: 0in"> 
+.app-chip{background:rgba(255,255,255,0.1);color:#9FD8CF;font-size:12px;padding:6px
+14px;border-radius:20px;border:0.5px solid rgba(255,255,255,0.15)}</p>
+<p style="margin-bottom: 0in"> 
+.notify-form{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}</p>
+<p style="margin-bottom: 0in"> 
+.notify-input{height:46px;border:1.5px solid
+rgba(255,255,255,0.2);border-radius:8px;padding:0
+16px;font-size:14px;color:#fff;background:rgba(255,255,255,0.1);outline:none;min-width:220px}</p>
+<p style="margin-bottom: 0in"> 
+.notify-input::placeholder{color:rgba(255,255,255,0.4)}</p>
+<p style="margin-bottom: 0in"> 
+.notify-btn{height:46px;background:#5DCAA5;color:#0F5147;font-size:14px;font-weight:700;padding:0
+24px;border-radius:8px;border:none;cursor:pointer;white-space:nowrap}</p>
+<p style="margin-bottom: 0in">  /* FOOTER */</p>
+<p style="margin-bottom: 0in"> 
+footer{background:#111827;padding:28px 24px;text-align:center}</p>
+<p style="margin-bottom: 0in">  footer
+p{color:#6B7280;font-size:12px}</p>
+<p style="margin-bottom: 0in">  footer span{color:#9FD8CF}</p>
+<p style="margin-bottom: 0in">&lt;/style&gt;</p>
+<p style="margin-bottom: 0in">&lt;/head&gt;</p>
+<p style="margin-bottom: 0in">&lt;body&gt;</p>
+<p style="margin-bottom: 0in">&lt;!-- NAV --&gt;</p>
+<p style="margin-bottom: 0in">&lt;nav&gt;</p>
+<p style="margin-bottom: 0in">  &lt;svg class=&quot;nav-shield&quot;
+viewBox=&quot;0 0 100 110&quot; fill=&quot;none&quot;&gt;</p>
+<p style="margin-bottom: 0in">    &lt;path d=&quot;M50 5 L90 22 L90
+55 C90 78 72 97 50 105 C28 97 10 78 10 55 L10 22 Z&quot;
+stroke=&quot;#9FD8CF&quot; stroke-width=&quot;7&quot; fill=&quot;none&quot;/&gt;</p>
+<p style="margin-bottom: 0in">    &lt;path d=&quot;M32 40 L50 72 L68
+40&quot; stroke=&quot;#9FD8CF&quot; stroke-width=&quot;7&quot;
+stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;
+fill=&quot;none&quot;/&gt;</p>
+<p style="margin-bottom: 0in">  &lt;/svg&gt;</p>
+<p style="margin-bottom: 0in">  &lt;div&gt;</p>
+<p style="margin-bottom: 0in">    &lt;div
+class=&quot;nav-brand&quot;&gt;VIRON&lt;/div&gt;</p>
+<p style="margin-bottom: 0in">    &lt;div class=&quot;nav-sub&quot;&gt;TRT
+Solutions&lt;/div&gt;</p>
+<p style="margin-bottom: 0in">  &lt;/div&gt;</p>
+<p style="margin-bottom: 0in">&lt;/nav&gt;</p>
+<p style="margin-bottom: 0in">&lt;!-- HERO --&gt;</p>
+<p style="margin-bottom: 0in">&lt;div class=&quot;hero&quot;&gt;</p>
+<p style="margin-bottom: 0in">  &lt;div class=&quot;hero-badge&quot;&gt;App
+coming soon&lt;/div&gt;</p>
+<p style="margin-bottom: 0in">  &lt;h1&gt;Finally
+understand&lt;br&gt;&lt;span&gt;your TRT labs.&lt;/span&gt;&lt;/h1&gt;</p>
+<p style="margin-bottom: 0in">  &lt;p&gt;Enter your bloodwork. Get
+plain-English results. Know exactly what to talk to your doctor
+about.&lt;/p&gt;</p>
+<p style="margin-bottom: 0in">  &lt;div class=&quot;hero-cta-group&quot;&gt;</p>
+<p style="margin-bottom: 0in">    &lt;div class=&quot;email-form&quot;&gt;</p>
+<p style="margin-bottom: 0in">      &lt;input class=&quot;email-input&quot;
+type=&quot;email&quot; placeholder=&quot;your@email.com&quot;
+id=&quot;heroEmail&quot;&gt;</p>
+<p style="margin-bottom: 0in">      &lt;button class=&quot;btn-primary&quot;
+onclick=&quot;submitEmail('heroEmail')&quot;&gt;Notify me at
+launch&lt;/button&gt;</p>
+<p style="margin-bottom: 0in">    &lt;/div&gt;</p>
+<p style="margin-bottom: 0in">    &lt;a href=&quot;#spreadsheet&quot;
+class=&quot;btn-secondary&quot;&gt;Get the free lab tracker now ↓&lt;/a&gt;</p>
+<p style="margin-bottom: 0in">  &lt;/div&gt;</p>
+<p style="margin-bottom: 0in">&lt;/div&gt;</p>
+<p style="margin-bottom: 0in">&lt;!-- FEATURES --&gt;</p>
+<p style="margin-bottom: 0in">&lt;div class=&quot;features&quot;&gt;</p>
+<p style="margin-bottom: 0in">  &lt;h2&gt;Built for men on TRT — by
+someone who's been there&lt;/h2&gt;</p>
+<p style="margin-bottom: 0in">  &lt;p class=&quot;sub&quot;&gt;1 year
+of self-experimentation. Hundreds of labs tracked. Everything I wish
+someone had told me.&lt;/p&gt;</p>
+<p style="margin-bottom: 0in">  &lt;div class=&quot;feature-grid&quot;&gt;</p>
+<p style="margin-bottom: 0in">    &lt;div class=&quot;feature-card&quot;&gt;</p>
+<p style="margin-bottom: 0in">      &lt;div class=&quot;feature-icon&quot;&gt;</p>
+<p style="margin-bottom: 0in">        &lt;svg viewBox=&quot;0 0 24
+24&quot; fill=&quot;none&quot; stroke=&quot;#1D9E75&quot;
+stroke-width=&quot;2&quot;&gt;&lt;path d=&quot;M9 5H7a2 2 0 00-2
+2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2
+2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2&quot;/&gt;&lt;/svg&gt;</p>
+<p style="margin-bottom: 0in">      &lt;/div&gt;</p>
+<p style="margin-bottom: 0in">      &lt;h3&gt;Marker-by-marker
+analysis&lt;/h3&gt;</p>
+<p style="margin-bottom: 0in">      &lt;p&gt;Total T, Free T, SHBG,
+E2, HCT — each one explained in plain English with TRT-optimized
+ranges, not generic lab reference ranges.&lt;/p&gt;</p>
+<p style="margin-bottom: 0in">    &lt;/div&gt;</p>
+<p style="margin-bottom: 0in">    &lt;div class=&quot;feature-card&quot;&gt;</p>
+<p style="margin-bottom: 0in">      &lt;div class=&quot;feature-icon&quot;&gt;</p>
+<p style="margin-bottom: 0in">        &lt;svg viewBox=&quot;0 0 24
+24&quot; fill=&quot;none&quot; stroke=&quot;#1D9E75&quot;
+stroke-width=&quot;2&quot;&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot;
+r=&quot;10&quot;/&gt;&lt;path d=&quot;M12 8v4l3 3&quot;/&gt;&lt;/svg&gt;</p>
+<p style="margin-bottom: 0in">      &lt;/div&gt;</p>
+<p style="margin-bottom: 0in">      &lt;h3&gt;Honest about the
+adjustment phase&lt;/h3&gt;</p>
+<p style="margin-bottom: 0in">      &lt;p&gt;We tell you what's
+improving AND what might feel rough — and why. The weeks 3–6 dip
+that nobody warns you about. The fog. The mood turbulence.
+Normalized.&lt;/p&gt;</p>
+<p style="margin-bottom: 0in">    &lt;/div&gt;</p>
+<p style="margin-bottom: 0in">    &lt;div class=&quot;feature-card&quot;&gt;</p>
+<p style="margin-bottom: 0in">      &lt;div class=&quot;feature-icon&quot;&gt;</p>
+<p style="margin-bottom: 0in">        &lt;svg viewBox=&quot;0 0 24
+24&quot; fill=&quot;none&quot; stroke=&quot;#1D9E75&quot;
+stroke-width=&quot;2&quot;&gt;&lt;path d=&quot;M17 21v-2a4 4 0
+00-4-4H5a4 4 0 00-4 4v2&quot;/&gt;&lt;circle cx=&quot;9&quot; cy=&quot;7&quot;
+r=&quot;4&quot;/&gt;&lt;path d=&quot;M23 21v-2a4 4 0 00-3-3.87M16
+3.13a4 4 0 010 7.75&quot;/&gt;&lt;/svg&gt;</p>
+<p style="margin-bottom: 0in">      &lt;/div&gt;</p>
+<p style="margin-bottom: 0in">      &lt;h3&gt;Talk to your doctor —
+prepared&lt;/h3&gt;</p>
+<p style="margin-bottom: 0in">      &lt;p&gt;Personalized
+conversation starters based on your actual numbers. Walk into your
+appointment knowing exactly what to ask.&lt;/p&gt;</p>
+<p style="margin-bottom: 0in">    &lt;/div&gt;</p>
+<p style="margin-bottom: 0in">    &lt;div class=&quot;feature-card&quot;&gt;</p>
+<p style="margin-bottom: 0in">      &lt;div class=&quot;feature-icon&quot;&gt;</p>
+<p style="margin-bottom: 0in">        &lt;svg viewBox=&quot;0 0 24
+24&quot; fill=&quot;none&quot; stroke=&quot;#1D9E75&quot;
+stroke-width=&quot;2&quot;&gt;&lt;polyline points=&quot;22 12 18 12
+15 21 9 3 6 12 2 12&quot;/&gt;&lt;/svg&gt;</p>
+<p style="margin-bottom: 0in">      &lt;/div&gt;</p>
+<p style="margin-bottom: 0in">      &lt;h3&gt;Pattern detection&lt;/h3&gt;</p>
+<p style="margin-bottom: 0in">      &lt;p&gt;Some issues only show up
+when you look at markers together. Low SHBG + high E2. High SHBG +
+low Free T. We surface the combination patterns your clinic might
+miss.&lt;/p&gt;</p>
+<p style="margin-bottom: 0in">    &lt;/div&gt;</p>
+<p style="margin-bottom: 0in">  &lt;/div&gt;</p>
+<p style="margin-bottom: 0in">&lt;/div&gt;</p>
+<p style="margin-bottom: 0in">&lt;!-- SPREADSHEET SECTION --&gt;</p>
+<p style="margin-bottom: 0in">&lt;div class=&quot;sheet-section&quot;
+id=&quot;spreadsheet&quot;&gt;</p>
+<p style="margin-bottom: 0in">  &lt;h2&gt;Free lab tracker —
+available now&lt;/h2&gt;</p>
+<p style="margin-bottom: 0in">  &lt;p&gt;While the app is in
+development, get the free Google Sheets version. Color-coded results,
+plain-English notes, and doctor conversation starters — all in a
+spreadsheet you copy to your own Drive.&lt;/p&gt;</p>
+<p style="margin-bottom: 0in">  &lt;div class=&quot;sheet-preview&quot;&gt;</p>
+<p style="margin-bottom: 0in">    &lt;div class=&quot;sheet-row&quot;&gt;</p>
+<p style="margin-bottom: 0in">      &lt;span
+class=&quot;sheet-marker&quot;&gt;Total Testosterone&lt;/span&gt;</p>
+<p style="margin-bottom: 0in">      &lt;span class=&quot;sheet-value&quot;&gt;650
+ng/dL&lt;/span&gt;</p>
+<p style="margin-bottom: 0in">      &lt;span class=&quot;badge
+b-green&quot;&gt;Optimal&lt;/span&gt;</p>
+<p style="margin-bottom: 0in">      &lt;span
+class=&quot;sheet-note&quot;&gt;Within target TRT range.&lt;/span&gt;</p>
+<p style="margin-bottom: 0in">    &lt;/div&gt;</p>
+<p style="margin-bottom: 0in">    &lt;div class=&quot;sheet-row&quot;&gt;</p>
+<p style="margin-bottom: 0in">      &lt;span
+class=&quot;sheet-marker&quot;&gt;Free Testosterone&lt;/span&gt;</p>
+<p style="margin-bottom: 0in">      &lt;span class=&quot;sheet-value&quot;&gt;12
+pg/mL&lt;/span&gt;</p>
+<p style="margin-bottom: 0in">      &lt;span class=&quot;badge
+b-amber&quot;&gt;Low-normal&lt;/span&gt;</p>
+<p style="margin-bottom: 0in">      &lt;span class=&quot;sheet-note&quot;&gt;Check
+SHBG — it may be binding too much.&lt;/span&gt;</p>
+<p style="margin-bottom: 0in">    &lt;/div&gt;</p>
+<p style="margin-bottom: 0in">    &lt;div class=&quot;sheet-row&quot;&gt;</p>
+<p style="margin-bottom: 0in">      &lt;span
+class=&quot;sheet-marker&quot;&gt;SHBG&lt;/span&gt;</p>
+<p style="margin-bottom: 0in">      &lt;span class=&quot;sheet-value&quot;&gt;52
+nmol/L&lt;/span&gt;</p>
+<p style="margin-bottom: 0in">      &lt;span class=&quot;badge
+b-amber&quot;&gt;High-normal&lt;/span&gt;</p>
+<p style="margin-bottom: 0in">      &lt;span
+class=&quot;sheet-note&quot;&gt;Binding more T, lowering Free
+T.&lt;/span&gt;</p>
+<p style="margin-bottom: 0in">    &lt;/div&gt;</p>
+<p style="margin-bottom: 0in">    &lt;div class=&quot;sheet-row&quot;&gt;</p>
+<p style="margin-bottom: 0in">      &lt;span
+class=&quot;sheet-marker&quot;&gt;Estradiol (E2)&lt;/span&gt;</p>
+<p style="margin-bottom: 0in">      &lt;span class=&quot;sheet-value&quot;&gt;28
+pg/mL&lt;/span&gt;</p>
+<p style="margin-bottom: 0in">      &lt;span class=&quot;badge
+b-green&quot;&gt;Optimal&lt;/span&gt;</p>
+<p style="margin-bottom: 0in">      &lt;span
+class=&quot;sheet-note&quot;&gt;Healthy estrogen balance.&lt;/span&gt;</p>
+<p style="margin-bottom: 0in">    &lt;/div&gt;</p>
+<p style="margin-bottom: 0in">    &lt;div class=&quot;sheet-row&quot;&gt;</p>
+<p style="margin-bottom: 0in">      &lt;span
+class=&quot;sheet-marker&quot;&gt;Hematocrit&lt;/span&gt;</p>
+<p style="margin-bottom: 0in">      &lt;span
+class=&quot;sheet-value&quot;&gt;51%&lt;/span&gt;</p>
+<p style="margin-bottom: 0in">      &lt;span class=&quot;badge
+b-blue&quot;&gt;Monitor&lt;/span&gt;</p>
+<p style="margin-bottom: 0in">      &lt;span
+class=&quot;sheet-note&quot;&gt;Mildly elevated — common on
+TRT.&lt;/span&gt;</p>
+<p style="margin-bottom: 0in">    &lt;/div&gt;</p>
+<p style="margin-bottom: 0in">  &lt;/div&gt;</p>
+<p style="margin-bottom: 0in">  &lt;a href=&quot;#&quot;
+class=&quot;download-btn&quot; onclick=&quot;alert('Replace this with
+your Google Sheets link!')&quot;&gt;Get the free tracker →&lt;/a&gt;</p>
+<p style="margin-bottom: 0in">  &lt;p
+style=&quot;margin-top:14px;font-size:12px;color:#6B7280&quot;&gt;No
+sign-up required. Copy to your Google Drive and use immediately.&lt;/p&gt;</p>
+<p style="margin-bottom: 0in">&lt;/div&gt;</p>
+<p style="margin-bottom: 0in">&lt;!-- COMING SOON --&gt;</p>
+<p style="margin-bottom: 0in">&lt;div class=&quot;coming&quot;&gt;</p>
+<p style="margin-bottom: 0in">  &lt;h2&gt;The Viron app is on its
+way.&lt;/h2&gt;</p>
+<p style="margin-bottom: 0in">  &lt;p&gt;Everything the spreadsheet
+does — plus your full lab history, trend charts, and a PDF summary
+for your appointments. Built for iOS and Android.&lt;/p&gt;</p>
+<p style="margin-bottom: 0in">  &lt;div class=&quot;app-features&quot;&gt;</p>
+<p style="margin-bottom: 0in">    &lt;span class=&quot;app-chip&quot;&gt;Lab
+history &amp; trends&lt;/span&gt;</p>
+<p style="margin-bottom: 0in">    &lt;span class=&quot;app-chip&quot;&gt;Trend
+alerts&lt;/span&gt;</p>
+<p style="margin-bottom: 0in">    &lt;span class=&quot;app-chip&quot;&gt;PDF
+appointment summary&lt;/span&gt;</p>
+<p style="margin-bottom: 0in">    &lt;span class=&quot;app-chip&quot;&gt;Protocol
+log&lt;/span&gt;</p>
+<p style="margin-bottom: 0in">    &lt;span class=&quot;app-chip&quot;&gt;iOS
++ Android&lt;/span&gt;</p>
+<p style="margin-bottom: 0in">    &lt;span class=&quot;app-chip&quot;&gt;Clinic
+integration&lt;/span&gt;</p>
+<p style="margin-bottom: 0in">  &lt;/div&gt;</p>
+<p style="margin-bottom: 0in">  &lt;div class=&quot;notify-form&quot;&gt;</p>
+<p style="margin-bottom: 0in">    &lt;input class=&quot;notify-input&quot;
+type=&quot;email&quot; placeholder=&quot;your@email.com&quot;
+id=&quot;footerEmail&quot;&gt;</p>
+<p style="margin-bottom: 0in">    &lt;button class=&quot;notify-btn&quot;
+onclick=&quot;submitEmail('footerEmail')&quot;&gt;Notify me at
+launch&lt;/button&gt;</p>
+<p style="margin-bottom: 0in">  &lt;/div&gt;</p>
+<p style="margin-bottom: 0in">  &lt;p
+style=&quot;color:rgba(159,216,207,0.6);font-size:12px;margin-top:14px&quot;&gt;No
+spam. One email when the app launches. That's it.&lt;/p&gt;</p>
+<p style="margin-bottom: 0in">&lt;/div&gt;</p>
+<p style="margin-bottom: 0in">&lt;!-- FOOTER --&gt;</p>
+<p style="margin-bottom: 0in">&lt;footer&gt;</p>
+<p style="margin-bottom: 0in">  &lt;p&gt;© 2025 &lt;span&gt;Viron
+TRT Solutions&lt;/span&gt; · Follow us &lt;span&gt;@VironTRT&lt;/span&gt;
+· Not medical advice&lt;/p&gt;</p>
+<p style="margin-bottom: 0in">&lt;/footer&gt;</p>
+<p style="margin-bottom: 0in">&lt;script&gt;</p>
+<p style="margin-bottom: 0in">function submitEmail(inputId) {</p>
+<p style="margin-bottom: 0in">  const val =
+document.getElementById(inputId).value;</p>
+<p style="margin-bottom: 0in">  if (!val || !val.includes('@')) {</p>
+<p style="margin-bottom: 0in">    alert('Please enter a valid email
+address.');</p>
+<p style="margin-bottom: 0in">    return;</p>
+<p style="margin-bottom: 0in">  }</p>
+<p style="margin-bottom: 0in">  alert('You\'re on the list! We\'ll
+notify you the moment the Viron app launches.');</p>
+<p style="margin-bottom: 0in"> 
+document.getElementById(inputId).value = '';</p>
+<p style="margin-bottom: 0in">}</p>
+<p style="margin-bottom: 0in">document.querySelectorAll('a[href=&quot;<a href="https://docs.google.com/spreadsheets/d/1FmKHMScJ_71WPzQFbvAEoaYeL8EZuFmf/copy%5D%E2%80%99"><font color="#1155cc"><u>https://docs.google.com/spreadsheets/d/1FmKHMScJ_71WPzQFbvAEoaYeL8EZuFmf/copy]’</u></font></a>).forEach(a
+=&gt; {</p>
+<p style="margin-bottom: 0in">  a.addEventListener('click', e =&gt; {</p>
+<p style="margin-bottom: 0in">    e.preventDefault();</p>
+<p style="margin-bottom: 0in">   
+document.getElementById('spreadsheet').scrollIntoView({ behavior:
+'smooth' });</p>
+<p style="margin-bottom: 0in">  });</p>
+<p style="margin-bottom: 0in">});</p>
+<p style="margin-bottom: 0in">&lt;/script&gt;</p>
+<p style="margin-bottom: 0in">&lt;/body&gt;</p>
+<p style="margin-bottom: 0in">&lt;/html&gt;</p>
+<p style="margin-bottom: 0in"><br/>
 
-<!-- NAV -->
-<nav>
-  <svg class="nav-shield" viewBox="0 0 100 110" fill="none">
-    <path d="M50 5 L90 22 L90 55 C90 78 72 97 50 105 C28 97 10 78 10 55 L10 22 Z" stroke="#9FD8CF" stroke-width="7" fill="none"/>
-    <path d="M32 40 L50 72 L68 40" stroke="#9FD8CF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  </svg>
-  <div>
-    <div class="nav-brand">VIRON</div>
-    <div class="nav-sub">TRT Solutions</div>
-  </div>
-</nav>
-
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-badge">App coming soon</div>
-  <h1>Finally understand<br><span>your TRT labs.</span></h1>
-  <p>Enter your bloodwork. Get plain-English results. Know exactly what to talk to your doctor about.</p>
-  <div class="hero-cta-group">
-    <div class="email-form">
-      <input class="email-input" type="email" placeholder="your@email.com" id="heroEmail">
-      <button class="btn-primary" onclick="submitEmail('heroEmail')">Notify me at launch</button>
-    </div>
-    <a href="#spreadsheet" class="btn-secondary">Get the free lab tracker now ↓</a>
-  </div>
-</div>
-
-<!-- FEATURES -->
-<div class="features">
-  <h2>Built for men on TRT — by someone who's been there</h2>
-  <p class="sub">1 year of self-experimentation. Hundreds of labs tracked. Everything I wish someone had told me.</p>
-  <div class="feature-grid">
-    <div class="feature-card">
-      <div class="feature-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#1D9E75" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
-      </div>
-      <h3>Marker-by-marker analysis</h3>
-      <p>Total T, Free T, SHBG, E2, HCT — each one explained in plain English with TRT-optimized ranges, not generic lab reference ranges.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#1D9E75" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-      </div>
-      <h3>Honest about the adjustment phase</h3>
-      <p>We tell you what's improving AND what might feel rough — and why. The weeks 3–6 dip that nobody warns you about. The fog. The mood turbulence. Normalized.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#1D9E75" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
-      </div>
-      <h3>Talk to your doctor — prepared</h3>
-      <p>Personalized conversation starters based on your actual numbers. Walk into your appointment knowing exactly what to ask.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#1D9E75" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-      </div>
-      <h3>Pattern detection</h3>
-      <p>Some issues only show up when you look at markers together. Low SHBG + high E2. High SHBG + low Free T. We surface the combination patterns your clinic might miss.</p>
-    </div>
-  </div>
-</div>
-
-<!-- SPREADSHEET SECTION -->
-<div class="sheet-section" id="spreadsheet">
-  <h2>Free lab tracker — available now</h2>
-  <p>While the app is in development, get the free Google Sheets version. Color-coded results, plain-English notes, and doctor conversation starters — all in a spreadsheet you copy to your own Drive.</p>
-
-  <div class="sheet-preview">
-    <div class="sheet-row">
-      <span class="sheet-marker">Total Testosterone</span>
-      <span class="sheet-value">650 ng/dL</span>
-      <span class="badge b-green">Optimal</span>
-      <span class="sheet-note">Within target TRT range.</span>
-    </div>
-    <div class="sheet-row">
-      <span class="sheet-marker">Free Testosterone</span>
-      <span class="sheet-value">12 pg/mL</span>
-      <span class="badge b-amber">Low-normal</span>
-      <span class="sheet-note">Check SHBG — it may be binding too much.</span>
-    </div>
-    <div class="sheet-row">
-      <span class="sheet-marker">SHBG</span>
-      <span class="sheet-value">52 nmol/L</span>
-      <span class="badge b-amber">High-normal</span>
-      <span class="sheet-note">Binding more T, lowering Free T.</span>
-    </div>
-    <div class="sheet-row">
-      <span class="sheet-marker">Estradiol (E2)</span>
-      <span class="sheet-value">28 pg/mL</span>
-      <span class="badge b-green">Optimal</span>
-      <span class="sheet-note">Healthy estrogen balance.</span>
-    </div>
-    <div class="sheet-row">
-      <span class="sheet-marker">Hematocrit</span>
-      <span class="sheet-value">51%</span>
-      <span class="badge b-blue">Monitor</span>
-      <span class="sheet-note">Mildly elevated — common on TRT.</span>
-    </div>
-  </div>
-
-  <a href="#" class="download-btn" onclick="alert('Replace this with your Google Sheets link!')">Get the free tracker →</a>
-  <p style="margin-top:14px;font-size:12px;color:#6B7280">No sign-up required. Copy to your Google Drive and use immediately.</p>
-</div>
-
-<!-- COMING SOON -->
-<div class="coming">
-  <h2>The Viron app is on its way.</h2>
-  <p>Everything the spreadsheet does — plus your full lab history, trend charts, and a PDF summary for your appointments. Built for iOS and Android.</p>
-  <div class="app-features">
-    <span class="app-chip">Lab history & trends</span>
-    <span class="app-chip">Trend alerts</span>
-    <span class="app-chip">PDF appointment summary</span>
-    <span class="app-chip">Protocol log</span>
-    <span class="app-chip">iOS + Android</span>
-    <span class="app-chip">Clinic integration</span>
-  </div>
-  <div class="notify-form">
-    <input class="notify-input" type="email" placeholder="your@email.com" id="footerEmail">
-    <button class="notify-btn" onclick="submitEmail('footerEmail')">Notify me at launch</button>
-  </div>
-  <p style="color:rgba(159,216,207,0.6);font-size:12px;margin-top:14px">No spam. One email when the app launches. That's it.</p>
-</div>
-
-<!-- FOOTER -->
-<footer>
-  <p>© 2025 <span>Viron TRT Solutions</span> · Follow us <span>@VironTRT</span> · Not medical advice</p>
-</footer>
-
-<script>
-function submitEmail(inputId) {
-  const val = document.getElementById(inputId).value;
-  if (!val || !val.includes('@')) {
-    alert('Please enter a valid email address.');
-    return;
-  }
-  alert('You\'re on the list! We\'ll notify you the moment the Viron app launches.');
-  document.getElementById(inputId).value = '';
-}
-document.querySelectorAll('a[href="#spreadsheet"]').forEach(a => {
-  a.addEventListener('click', e => {
-    e.preventDefault();
-    document.getElementById('spreadsheet').scrollIntoView({ behavior: 'smooth' });
-  });
-});
-</script>
+</p>
 </body>
 </html>
